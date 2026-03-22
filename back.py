@@ -1,6 +1,10 @@
 from fastapi import FastAPI
 from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
+url=os.getenv("url")
 #DataBase Connection:
 client=MongoClient(url)
 
