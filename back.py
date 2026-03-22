@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from pymongo import MongoClient
 
 #DataBase Connection:
-url="mongodb"
 client=MongoClient(url)
 
 db=client["college"]
@@ -30,5 +29,3 @@ def retrievetops(i:int,branch:str):
         data['_id']=str(data['_id'])
         toppers.append(data)
     return toppers
-
-
