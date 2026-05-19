@@ -8,7 +8,7 @@ load_dotenv()
 url=os.getenv("url")
 
 #DataBase Connection:
-client=MongoClient(url)
+client=MongoClient("url")
 
 db=client["college"]
 collection=db["student"]
@@ -33,10 +33,18 @@ def alldataset():
 def retrievetops(i:int,branch:str):
     toppers=[]
     rank=0
+    prev=float('inf')
+    excess=1
     for data in collection.find({"branch":branch}).sort([('CGPA',-1),('htno',1)]).limit(i):
         del(data['_id'])
-        rank+=1
-        data['rank']=rank
+        if (data['CGPA']==prev):
+            data['rank']=rank
+            excess+=1
+        else:
+            rank+=excess
+            excess=1
+            data['rank']=rank
+        prev=data["CGPA"]
         toppers.append(data)
     return toppers
 
