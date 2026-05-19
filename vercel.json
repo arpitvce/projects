@@ -9,7 +9,7 @@
 	],
 
 	"functions":{
-		"back.py":{
+		"api/back.py":{
 			"maxDuration":60
 		}
 	}
