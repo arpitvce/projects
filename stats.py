@@ -1,10 +1,12 @@
 def average(collection,branch):
     total=0
     count=0
-    maxstudents=collection.count({"branch":branch})
     for data in collection.find({"branch":branch}):
         total+=data["CGPA"]
-    return {"Average":round(total/maxstudents,2)}
+        count+=1
+    if count==0:
+        return -1
+    return {"Average":round(total/count,2)}
 
 def distribution(collections,branch):
     count0=0
