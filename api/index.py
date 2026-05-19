@@ -8,7 +8,7 @@ load_dotenv()
 url=os.getenv("url")
 
 #DataBase Connection:
-client=MongoClient("url")
+client=MongoClient(url)
 
 db=client["college"]
 collection=db["student"]
