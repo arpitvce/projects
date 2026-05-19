@@ -1,10 +1,12 @@
 from fastapi import FastAPI
 from pymongo import MongoClient
 from dotenv import load_dotenv
+from stats import distribution,average 
 import os
 
 load_dotenv()
 url=os.getenv("url")
+
 #DataBase Connection:
 client=MongoClient(url)
 
@@ -16,20 +18,33 @@ collection=db["student"]
 # Backend Connections
 app=FastAPI()
 
-
-# HTTP GET REQUEST TO FECTH ALL DATA IN student COLLECTION stored in MONGO DB DataBase
 @app.get("/alldata")
 def alldataset():
     store=[]
+    rank=0
     for data in collection.find():
-        data['_id']=str(data['_id'])
+        rank+=1
+        del(data['_id'])
+        data['rank']=rank
         store.append(data)
     return store
 
 @app.get("/top/{i}/{branch}")
 def retrievetops(i:int,branch:str):
     toppers=[]
-    for data in collection.find({"branch":branch}).sort('CGPA',-1).limit(i):
-        data['_id']=str(data['_id'])
+    rank=0
+    for data in collection.find({"branch":branch}).sort([('CGPA',-1),('htno',1)]).limit(i):
+        del(data['_id'])
+        rank+=1
+        data['rank']=rank
         toppers.append(data)
     return toppers
+
+@app.get("/{branch}/average")
+def avg(branch:str):
+    return average(collection,branch)
+
+@app.get("/{branch}/distribution")
+def distrib(branch:str):
+    return distribution(collection,branch)
+        
