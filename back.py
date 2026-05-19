@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 from stats import distribution,average 
 import os
+import time
 
 load_dotenv()
 url=os.getenv("url")
@@ -31,6 +32,7 @@ def alldataset():
 
 @app.get("/top/{i}/{branch}")
 def retrievetops(i:int,branch:str):
+    start=time.time()
     toppers=[]
     rank=0
     prev=float('inf')
@@ -46,6 +48,8 @@ def retrievetops(i:int,branch:str):
             data['rank']=rank
         prev=data["CGPA"]
         toppers.append(data)
+    end=time.time()
+    print("Time=",end-start)
     return toppers
 
 @app.get("/{branch}/average")

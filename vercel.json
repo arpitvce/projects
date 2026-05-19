@@ -10,6 +10,14 @@
 	{
 		"src":"/(.*)",
 		"dest":"back.py"
+
 	}
-        ]
+	],
+
+	"functions":{
+		"back.py":{
+			"maxDuration":60
+		}
+	}
+        
 }	
