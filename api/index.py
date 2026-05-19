@@ -5,7 +5,7 @@ from stats import distribution,average
 import os
 
 load_dotenv()
-url=os.getenv("URL")
+url=os.getenv("url")
 
 #DataBase Connection:
 client=MongoClient(url)
