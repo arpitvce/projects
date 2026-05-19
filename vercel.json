@@ -1,13 +1,5 @@
 {
 
-	"routes":[
-	{
-		"src":"/(.*)",
-		"dest":"back.py"
-
-	}
-	],
-
 	"functions":{
 		"api/back.py":{
 			"maxDuration":60
