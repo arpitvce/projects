@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pymongo import MongoClient
 from dotenv import load_dotenv
 from stats import distribution,average 
+from fastapi.middleware.cors import CORSMiddleware
 import os
 
 load_dotenv()
@@ -17,6 +18,8 @@ collection=db["student"]
 
 # Backend Connections
 app=FastAPI()
+
+app.add_middleware(CORSMiddleware,allow_origins=["*"],allow_credentials=True,allow_methods=["*"],allow_headers=["*"])
 
 @app.get("/alldata")
 def alldataset():
